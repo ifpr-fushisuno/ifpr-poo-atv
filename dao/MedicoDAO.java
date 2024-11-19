@@ -1,80 +1,71 @@
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import model.Medico;
 
 public class MedicoDAO {
-    public void save(Medico medico) {
-        String sql = "INSERT INTO medicos (crm, nome, especialidade) VALUES (?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+    public void cadastrarMedico(Medico medico) throws ExceptionDAO {
+        String sql = "INSERT INTO Medico (crm, nome, especialidade) VALUES (?, ?, ?)";
+        try (Connection connection = new ConexaoBD().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, medico.getCrm());
             stmt.setString(2, medico.getNome());
             stmt.setString(3, medico.getEspecialidade());
-            stmt.executeUpdate();
+            stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new ExceptionDAO("Erro ao cadastrar médico: " + e.getMessage());
         }
     }
 
-    public Medico findByCrm(String crm) {
-        String sql = "SELECT * FROM medicos WHERE crm = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public Medico consultarMedico(String crm) throws ExceptionDAO {
+        String sql = "SELECT * FROM Medico WHERE crm = ?";
+        try (Connection connection = new ConexaoBD().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, crm);
             ResultSet rs = stmt.executeQuery();
-            if (rs.first()) {
-                return new Medico(
-                    rs.getString("crm"),
-                    rs.getString("nome"),
-                    rs.getString("especialidade")
-                );
+            
+            if (rs.next()) {
+                Medico medico = new Medico();
+                medico.setCrm(rs.getString("crm"));
+                medico.setNome(rs.getString("nome"));
+                medico.setEspecialidade(rs.getString("especialidade"));
+                return medico;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        return null; // Não encontrado
+            throw new ExceptionDAO("Erro ao consultar médico: " + e.getMessage());
+        } 
+        return null;
     }
 
-    public void update(Medico medico) {
-        String sql = "UPDATE medicos SET nome = ?, especialidade = ? WHERE crm = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public void alterarMedico(Medico medico) throws ExceptionDAO {
+        String sql = "UPDATE Medico SET nome = ?, especialidade = ? WHERE crm = ?";
+        try (Connection connection = new ConexaoBD().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, medico.getNome());
             stmt.setString(2, medico.getEspecialidade());
             stmt.setString(3, medico.getCrm());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+            throw new ExceptionDAO("Erro ao alterar médico: " + e.getMessage());
+        } 
     }
 
-    public void delete(String crm) {
-        String sql = "DELETE FROM medicos WHERE crm = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public void excluirMedico(String crm) throws ExceptionDAO {
+        String sql = "DELETE FROM Medico WHERE crm = ?";
+        try (Connection connection = new ConexaoBD().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, crm);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public List<Medico> findAll() {
-        List<Medico> medicos = new ArrayList<>();
-        String sql = "SELECT * FROM medicos";
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                medicos.add(new Medico(
-                    rs.getString("crm"),
-                    rs.getString("nome"),
-                    rs.getString("especialidade")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return medicos;
+            throw new ExceptionDAO("Erro ao excluir médico: " + e.getMessage());
+        } 
     }
 }
