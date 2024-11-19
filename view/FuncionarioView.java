@@ -1,4 +1,8 @@
 import javax.swing.*;
+
+import controller.FuncionarioController;
+import model.Funcionario;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

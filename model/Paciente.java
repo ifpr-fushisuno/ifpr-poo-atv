@@ -1,79 +1,124 @@
 package model;
 
 public class Paciente {
-    private String cpf;
-    private String nome;
-    private String endereco;
-    private String telefone;
+    private int idPaciente;
+    private Pessoa idPessoa;
+    private String etnia;
     private String tipoSanguineo;
-    private boolean fatorRH;
-    private Sexo sexo;
-
-    public enum Sexo {
-        MASCULINO,
-        FEMININO,
-        OUTRO
+    private boolean fatorRh;
+    private double peso;
+    private double altura;
+    private boolean doador;
+    private boolean fumante;
+    private String doencas;
+    private String limitacoes;
+    
+    public Paciente() {
     }
 
-    public Paciente(String cpf, String nome, String endereco, String telefone, String tipoSanguineo, boolean fatorRH, Sexo sexo) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.telefone = telefone;
+    public Paciente(int idPaciente, Pessoa idPessoa, String etnia, String tipoSanguineo, boolean fatorRh, double peso,
+            double altura, boolean doador, boolean fumante, String doencas, String limitacoes) {
+        this.idPaciente = idPaciente;
+        this.idPessoa = idPessoa;
+        this.etnia = etnia;
         this.tipoSanguineo = tipoSanguineo;
-        this.fatorRH =fatorRH;
-        this.sexo = sexo;
-    }
-        public Paciente() {}
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.fatorRh = fatorRh;
+        this.peso = peso;
+        this.altura = altura;
+        this.doador = doador;
+        this.fumante = fumante;
+        this.doencas = doencas;
+        this.limitacoes = limitacoes;
     }
 
-    public String getNome() {
-        return nome;
+    public int getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public Pessoa getIdPessoa() {
+        return idPessoa;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setIdPessoa(Pessoa idPessoa) {
+        this.idPessoa = idPessoa;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getEtnia() {
+        return etnia;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setEtnia(String etnia) {
+        this.etnia = etnia;
     }
 
     public String getTipoSanguineo() {
         return tipoSanguineo;
     }
 
-    public void setFatorRH(boolean fatorRH) {
-        this.fatorRH = fatorRH;
-    }
-
-    public boolean getFatorRH() {
-        return fatorRH;
-    }
-
-    public void setTipoSanguinea(String tipoSanguineo) {
+    public void setTipoSanguineo(String tipoSanguineo) {
         this.tipoSanguineo = tipoSanguineo;
     }
 
-    // Construtores, getters e setters
+    public boolean isFatorRh() {
+        return fatorRh;
+    }
 
+    public void setFatorRh(boolean fatorRh) {
+        this.fatorRh = fatorRh;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    public boolean isDoador() {
+        return doador;
+    }
+
+    public void setDoador(boolean doador) {
+        this.doador = doador;
+    }
+
+    public boolean isFumante() {
+        return fumante;
+    }
+
+    public void setFumante(boolean fumante) {
+        this.fumante = fumante;
+    }
+
+    public String getDoencas() {
+        return doencas;
+    }
+
+    public void setDoencas(String doencas) {
+        this.doencas = doencas;
+    }
+
+    public String getLimitacoes() {
+        return limitacoes;
+    }
+
+    public void setLimitacoes(String limitacoes) {
+        this.limitacoes = limitacoes;
+    }
+
+    
+    
 }

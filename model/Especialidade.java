@@ -1,18 +1,32 @@
 package model;
 
 public class Especialidade {
-    private String nome;
-
-    public Especialidade(String nome) {
-        this.nome = nome;
+    private int idEspecialidade;
+    private String especialidade;
+    
+    public Especialidade() {
     }
 
-    // Getters e Setters
-    public String getNome() {
-        return nome;
+    public Especialidade(int idEspecialidade, String especialidade) {
+        this.idEspecialidade = idEspecialidade;
+        this.especialidade = especialidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public int getIdEspecialidade() {
+        return idEspecialidade;
     }
+
+    public void setIdEspecialidade(int idEspecialidade) {
+        this.idEspecialidade = idEspecialidade;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    
 }

@@ -1,40 +1,76 @@
 package model;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.Date;
+import java.sql.Time;
 
 public class Agenda {
-    private List<Consulta> consultas;
+    private int idAgenda;
+    private Paciente idPaciente;
+    private Profissional idProfissional;
+    private Date dataConsulta;
+    private Time horario;
+    private String tipoConsulta;
+
+    public Agenda(int idAgenda, Paciente idPaciente, Profissional idProfissional, Date dataConsulta, Time horario,
+            String tipoConsulta) {
+        this.idAgenda = idAgenda;
+        this.idPaciente = idPaciente;
+        this.idProfissional = idProfissional;
+        this.dataConsulta = dataConsulta;
+        this.horario = horario;
+        this.tipoConsulta = tipoConsulta;
+    }
 
     public Agenda() {
-        this.consultas = new ArrayList<>();
     }
 
-    public boolean agendarConsulta(Consulta consulta) {
-        for (Consulta c : consultas) {
-            if (c.getDataHora().equals(consulta.getDataHora()) && c.getMedico().equals(consulta.getMedico())) {
-                return false; // Horário já está ocupado
-            }
-        }
-        consultas.add(consulta);
-        return true; // Consulta agendada com sucesso
+    public int getIdAgenda() {
+        return idAgenda;
     }
 
-    public void cancelarConsulta(String idConsulta) {
-        consultas.removeIf(c -> c.getIdConsulta().equals(idConsulta));
+    public void setIdAgenda(int idAgenda) {
+        this.idAgenda = idAgenda;
     }
 
-    public List<Consulta> listarConsultas() {
-        return consultas;
+    public Paciente getIdPaciente() {
+        return idPaciente;
     }
 
-    public List<Consulta> listarConsultasPorMedico(Medico medico) {
-        List<Consulta> consultasMedico = new ArrayList<>();
-        for (Consulta c : consultas) {
-            if (c.getMedico().equals(medico)) {
-                consultasMedico.add(c);
-            }
-        }
-        return consultasMedico;
+    public void setIdPaciente(Paciente idPaciente) {
+        this.idPaciente = idPaciente;
     }
+
+    public Profissional getIdProfissional() {
+        return idProfissional;
+    }
+
+    public void setIdProfissional(Profissional idProfissional) {
+        this.idProfissional = idProfissional;
+    }
+
+    public Date getDataConsulta() {
+        return dataConsulta;
+    }
+
+    public void setDataConsulta(Date dataConsulta) {
+        this.dataConsulta = dataConsulta;
+    }
+
+    public Time getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Time horario) {
+        this.horario = horario;
+    }
+
+    public String getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
+    
+
 }

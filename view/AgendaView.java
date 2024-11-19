@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 
 import controller.AgendaController;
-
+import model.Consulta;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,7 +29,12 @@ public class AgendaView {
         JButton btnListar = new JButton("Listar Consultas");
         btnListar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                listarConsultas();
+                try {
+                    listarConsultas();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         
@@ -44,7 +49,7 @@ public class AgendaView {
         frame.setVisible(true);
     }
 
-    private void listarConsultas() {
+    private void listarConsultas() throws Exception {
         List<Consulta> consultas = agendaController.listarConsultas();
         // Atualize a tabela com as consultas aqui (você pode usar algum modelo de tabela para exibir os dados)
     }
