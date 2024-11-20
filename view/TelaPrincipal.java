@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 // Importando a classe da TelaCadastroPessoa
@@ -82,6 +83,10 @@ public class TelaPrincipal extends JFrame {
     }
 
     public static void main(String[] args) {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("A aplicação não pode ser executada em um ambiente gráfico.");
+            return;
+        }
         SwingUtilities.invokeLater(() -> {
             TelaPrincipal telaPrincipal = new TelaPrincipal();
             telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
