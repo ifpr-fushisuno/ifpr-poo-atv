@@ -15,13 +15,12 @@ public class Pessoa {
     private String sexo;
     private String profissao;
     private String endereco;
-    
+
     public Pessoa() {
     }
-    
-    public Pessoa(int idPessoa, String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+
+    public Pessoa(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
             String profissao, String endereco) {
-        this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.rg = rg;
@@ -103,16 +102,16 @@ public class Pessoa {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    
-        	public void cadastrarCliente(Pessoa Pessoa) throws ExceptionDAO{
-		new PessoaDAO().cadastrarPessoa(Pessoa);
-	}
 
-	public void alterarPessoa(Pessoa Pessoa) throws ExceptionDAO{
-		new PessoaDAO().alterarPessoa(Pessoa);
-	}
-	
-	public void excluirPessoa(int idPessoa) throws ExceptionDAO{
-		new PessoaDAO().excluirPessoa(idPessoa);
-	}
+    public void createPessoa(Pessoa Pessoa) throws ExceptionDAO {
+        new PessoaDAO().createPessoa(Pessoa);
+    }
+
+    public void updatePessoa(Pessoa Pessoa) throws ExceptionDAO {
+        new PessoaDAO().updatePessoa(Pessoa);
+    }
+
+    public void deletePessoa(int idPessoa) throws ExceptionDAO {
+        new PessoaDAO().deletePessoa(idPessoa);
+    }
 }

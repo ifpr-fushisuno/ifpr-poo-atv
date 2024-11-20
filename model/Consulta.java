@@ -1,7 +1,10 @@
 package model;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDateTime;
 
+import dao.ConsultaDAO;
 import dao.ExceptionDAO;
 
 /**
@@ -11,6 +14,8 @@ public class Consulta {
     private int idConsulta;
     private Paciente Paciente;
     private Profissional Profissional;
+    private Date dataConsulta;
+    private Time horaConsulta;
     private LocalDateTime dataHoraConsulta;
     private StatusConsulta statusConsulta;
 
@@ -44,7 +49,7 @@ public class Consulta {
         return Paciente;
     }
 
-    public Paciente getIdPaciente() {
+    public int getIdPaciente() {
         return Paciente.getIdPaciente();
     }
 
@@ -54,6 +59,10 @@ public class Consulta {
 
     public Profissional getProfissional() {
         return Profissional;
+    }
+
+    public int getIdProfissional() {
+        return Profissional.getIdProfissional();
     }
 
     public void setProfissional(Profissional profissional) {
@@ -68,8 +77,8 @@ public class Consulta {
         this.dataHoraConsulta = dataHoraConsulta;
     }
 
-    public StatusConsulta getStatusConsulta() {
-        return statusConsulta;
+    public String getStatusConsulta() {
+        return "" + statusConsulta;
     }
 
     public void setStatusConsulta(StatusConsulta statusConsulta) {
@@ -77,11 +86,11 @@ public class Consulta {
     }
 
     public void cadastrarCliente(Consulta consulta) throws ExceptionDAO {
-        new ConsultaDAO().cadastrarConsulta(Consulta);
+        new ConsultaDAO().createConsulta(consulta);
     }
 
     public void alterarConsulta(Consulta consulta) throws ExceptionDAO {
-        new ConsultaDAO().alterarConsulta(Consulta);
+        new ConsultaDAO().alterarConsulta(consulta);
     }
 
     public void excluirConsulta(int idConsulta) throws ExceptionDAO {

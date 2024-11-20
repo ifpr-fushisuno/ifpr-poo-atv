@@ -17,6 +17,10 @@ public class Paciente extends Pessoa {
     private String doencas;
     private String limitacoes;
 
+    
+    public Paciente() {
+    }
+
     public Paciente(int idPessoa, String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
             String profissao, String endereco, int idPaciente, int idPessoa2, String etnia, String tipoSanguineo,
             boolean fatorRh, double peso, double altura, boolean doador, boolean fumante, String doencas,
@@ -128,8 +132,8 @@ public class Paciente extends Pessoa {
         this.limitacoes = limitacoes;
     }
 
-    public void cadastrarCliente(Paciente Paciente) throws ExceptionDAO {
-        new PacienteDAO().cadastrarPaciente(Paciente);
+    public void createPaciente(Paciente Paciente) throws ExceptionDAO {
+        new PacienteDAO().createPaciente(Paciente);
     }
 
     public void alterarPaciente(Paciente Paciente) throws ExceptionDAO {
