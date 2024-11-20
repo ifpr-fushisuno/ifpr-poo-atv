@@ -9,7 +9,6 @@ public class PessoaController {
 	public void cadastrarPessoa(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao) throws Exception{
 		if (nome != null && nome.length() > 0 && telefone != null && telefone.length() > 0) {
 			Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao);
-
 			pessoa.cadastrarPessoa(pessoa);
 		} else {
 			throw new Exception("Preencha os campos corretamente!");
@@ -18,16 +17,15 @@ public class PessoaController {
     
 	public Pessoa consultarPessoa(String nome) throws Exception{
 		if (nome != null && nome.length() > 0) {
-			Pessoa Pessoa = new PessoaDAO().consultarPessoa(nome);
+			Pessoa pessoa = new PessoaDAO().consultarPessoa(nome);
 			return Pessoa;
 		} else {
 			throw new Exception("Preencha os campos corretamente!");
 		}
 	}
-	public void alterarPessoa(int codCli, String nome, String telefone) throws Exception{
+	public void alterarPessoa(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao) throws Exception{
 		if (nome != null && nome.length() > 0 && telefone != null && telefone.length() > 0) { 
 			Pessoa Pessoa = new Pessoa(nome, telefone);
-			Pessoa.setCodCli(codCli);
 			Pessoa.alterarPessoa(Pessoa);
 		} else {
 			throw new Exception("Preencha os campos corretamente!");
