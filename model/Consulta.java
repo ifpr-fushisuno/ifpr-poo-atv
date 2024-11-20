@@ -44,6 +44,10 @@ public class Consulta {
         return Paciente;
     }
 
+    public Paciente getIdPaciente() {
+        return Paciente.getIdPaciente();
+    }
+
     public void setPaciente(Paciente paciente) {
         Paciente = paciente;
     }
@@ -71,16 +75,16 @@ public class Consulta {
     public void setStatusConsulta(StatusConsulta statusConsulta) {
         this.statusConsulta = statusConsulta;
     }
-    
-    	public void cadastrarCliente(Consulta consulta) throws ExceptionDAO{
-		new ConsultaDAO().cadastrarConsulta(Consulta);
-	}
 
-	public void alterarConsulta(Consulta consulta) throws ExceptionDAO{
-		new ConsultaDAO().alterarConsulta(Consulta);
-	}
-	
-	public void excluirConsulta(int idConsulta) throws ExceptionDAO{
-		new ConsultaDAO().excluirConsulta(idConsulta);
-	}
+    public void cadastrarCliente(Consulta consulta) throws ExceptionDAO {
+        new ConsultaDAO().cadastrarConsulta(Consulta);
+    }
+
+    public void alterarConsulta(Consulta consulta) throws ExceptionDAO {
+        new ConsultaDAO().alterarConsulta(Consulta);
+    }
+
+    public void excluirConsulta(int idConsulta) throws ExceptionDAO {
+        new ConsultaDAO().excluirConsulta(idConsulta);
+    }
 }
