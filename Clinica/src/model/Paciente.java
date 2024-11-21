@@ -6,21 +6,18 @@ import dao.PacienteDAO;
 import dao.ExceptionDAO;
 
 public class Paciente extends Pessoa {
-    private int idPaciente;
-    private String etnia;
-    private String tipoSanguineo;
-    private boolean fatorRh;
-    private double peso;
-    private double altura;
-    private boolean doador;
-    private boolean fumante;
-    private String doencas;
-    private String limitacoes;
+	private int idPaciente;
+	private String etnia;
+	private String tipoSanguineo;
+	private boolean fatorRh;
+	private double peso;
+	private double altura;
+	private boolean doador;
+	private boolean fumante;
+	private String doencas;
+	private String limitacoes;
 
- 
-    
-
-    public Paciente() {
+	public Paciente() {
 		super();
 	}
 
@@ -29,10 +26,9 @@ public class Paciente extends Pessoa {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 	}
 
-	public Paciente(int idPaciente, String etnia, String tipoSanguineo, boolean fatorRh, double peso, double altura,
-			boolean doador, boolean fumante, String doencas, String limitacoes) {
+	public Paciente(String etnia, String tipoSanguineo, boolean fatorRh, double peso, double altura, boolean doador,
+			boolean fumante, String doencas, String limitacoes) {
 		super();
-		this.idPaciente = idPaciente;
 		this.etnia = etnia;
 		this.tipoSanguineo = tipoSanguineo;
 		this.fatorRh = fatorRh;
@@ -45,84 +41,95 @@ public class Paciente extends Pessoa {
 	}
 
 	public int getIdPaciente() {
-        return idPaciente;
-    }
+		return idPaciente;
+	}
 
-    public void setIdPaciente(int idPaciente) {
-        this.idPaciente = idPaciente;
-    }
+	public void setIdPaciente(int idPaciente) {
+		this.idPaciente = idPaciente;
+	}
 
-    public String getEtnia() {
-        return etnia;
-    }
+	public String getEtnia() {
+		return etnia;
+	}
 
-    public void setEtnia(String etnia) {
-        this.etnia = etnia;
-    }
+	public void setEtnia(String etnia) {
+		this.etnia = etnia;
+	}
 
-    public String getTipoSanguineo() {
-        return tipoSanguineo;
-    }
+	public String getTipoSanguineo() {
+		return tipoSanguineo;
+	}
 
-    public void setTipoSanguineo(String tipoSanguineo) {
-        this.tipoSanguineo = tipoSanguineo;
-    }
+	public void setTipoSanguineo(String tipoSanguineo) {
+		this.tipoSanguineo = tipoSanguineo;
+	}
 
-    public boolean isFatorRh() {
-        return fatorRh;
-    }
+	public boolean getFatorRh() {
+		return fatorRh;
+	}
 
-    public void setFatorRh(boolean fatorRh) {
-        this.fatorRh = fatorRh;
-    }
+	public void setFatorRh(boolean fatorRh) {
+		this.fatorRh = fatorRh;
+	}
 
-    public double getPeso() {
-        return peso;
-    }
+	public double getPeso() {
+		return peso;
+	}
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
 
-    public double getAltura() {
-        return altura;
-    }
+	public double getAltura() {
+		return altura;
+	}
 
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
+	public void setAltura(double altura) {
+		this.altura = altura;
+	}
 
-    public boolean isDoador() {
-        return doador;
-    }
+	public boolean isDoador() {
+		return doador;
+	}
 
-    public void setDoador(boolean doador) {
-        this.doador = doador;
-    }
+	public void setDoador(boolean doador) {
+		this.doador = doador;
+	}
 
-    public boolean isFumante() {
-        return fumante;
-    }
+	public boolean isFumante() {
+		return fumante;
+	}
 
-    public void setFumante(boolean fumante) {
-        this.fumante = fumante;
-    }
+	public void setFumante(boolean fumante) {
+		this.fumante = fumante;
+	}
 
-    public String getDoencas() {
-        return doencas;
-    }
+	public String getDoencas() {
+		return doencas;
+	}
 
-    public void setDoencas(String doencas) {
-        this.doencas = doencas;
-    }
+	public void setDoencas(String doencas) {
+		this.doencas = doencas;
+	}
 
-    public String getLimitacoes() {
-        return limitacoes;
-    }
+	public String getLimitacoes() {
+		return limitacoes;
+	}
 
-    public void setLimitacoes(String limitacoes) {
-        this.limitacoes = limitacoes;
-    }
+	public void setLimitacoes(String limitacoes) {
+		this.limitacoes = limitacoes;
+	}
 
+	public void createPaciente(Paciente paciente, int idPessoa) throws ExceptionDAO {
+		new PacienteDAO().createPaciente(paciente, idPessoa);
+	}
+
+	public void updatePaciente(Paciente paciente) throws ExceptionDAO {
+		new PacienteDAO().updatePaciente(paciente);
+	}
+
+	public void deletePaciente(int idPpaciente) throws ExceptionDAO {
+		new PacienteDAO().deletePaciente(idPpaciente);
+	}
 
 }

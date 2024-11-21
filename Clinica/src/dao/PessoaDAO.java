@@ -9,36 +9,25 @@ import model.Pessoa;
 
 public class PessoaDAO {
 
-	public void createPessoa(Pessoa Pessoa) throws ExceptionDAO {
-		String sql = "INSERT INTO Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING idPessoa;";
+	public void createPessoa(Pessoa pessoa) throws ExceptionDAO {
+		String sql = "INSERT INTO Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
 			conn = new ConexaoBD().getConnection();
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, Pessoa.getNome());
-			stmt.setString(2, Pessoa.getTelefone());
-			stmt.setString(3, Pessoa.getRg());
-			stmt.setString(4, Pessoa.getCpf());
-			stmt.setDate(5, Pessoa.getDataNascimento());
-			stmt.setString(6, Pessoa.getSexo());
-			stmt.setString(7, Pessoa.getProfissao());
-			stmt.setString(8, Pessoa.getEndereco());
+			stmt.setString(1, pessoa.getNome());
+			stmt.setString(2, pessoa.getTelefone());
+			stmt.setString(3, pessoa.getRg());
+			stmt.setString(4, pessoa.getCpf());
+			stmt.setDate(5, pessoa.getDataNascimento());
+			stmt.setString(6, pessoa.getSexo());
+			stmt.setString(7, pessoa.getProfissao());
+			stmt.setString(8, pessoa.getEndereco());
 
 			stmt.execute();
-			
-			// Caso seja necessario pegar o id no momento do cadastro use:
-			/* 
-			ResultSet generatedKeys = stmt.executeQuery();
-            if (generatedKeys.next()) {
-                int idPessoaGerado = generatedKeys.getInt(1); // 1 é o índice da coluna que você deseja
-                pessoa.setIdPessoa(idPessoaGerado); // Define o idPessoa gerado na instância da Pessoa
-            } else {
-                throw new SQLException("Falha ao obter o id gerado.");
-            }
 			 
-			*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ExceptionDAO("Erro ao cadastrar Pessoa: " + e);
