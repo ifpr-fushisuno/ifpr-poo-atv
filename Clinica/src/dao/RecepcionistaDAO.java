@@ -9,20 +9,17 @@ import java.sql.SQLException;
 public class RecepcionistaDAO {
 
     public void createRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
-        String sql = "INSERT INTO Recepcionista (login, senha, cargo, idPessoa) VALUES (?, ?, ?, ?);"; // Ajuste os campos conforme sua tabela
+        String sql = "INSERT INTO Recepcionista (idFuncionario) VALUES (?);";
         try (Connection conn = new ConexaoBD().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, recepcionista.getLogin());
-            stmt.setString(2, recepcionista.getSenha());
-            stmt.setString(3, recepcionista.getCargo());
-            stmt.setInt(4, recepcionista.getIdPessoa()); // Assumindo que idPessoa é um atributo da classe Funcionario
-
-            stmt.executeUpdate();
+        	stmt.setInt(1, recepcionista.getIdFuncionario());
+			stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ExceptionDAO("Erro ao criar Recepcionista: " + e.getMessage());
         }
     }
+
 
     public void updateRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
         String sql = "UPDATE Recepcionista SET login = ?, senha = ?, cargo = ? WHERE idRecepcionista = ?;";

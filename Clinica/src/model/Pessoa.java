@@ -114,4 +114,8 @@ public class Pessoa {
     public void deletePessoa(int idPessoa) throws ExceptionDAO {
         new PessoaDAO().deletePessoa(idPessoa);
     }
+    
+    public Pessoa getPessoaByCpf(String cpf) throws ExceptionDAO {
+    	return new PessoaDAO().getPessoaByCpf(cpf);
+    }
 }

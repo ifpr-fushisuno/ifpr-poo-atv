@@ -3,6 +3,7 @@ package model;
 import java.sql.Date;
 
 import dao.FuncionarioDAO;
+import dao.PessoaDAO;
 import dao.ExceptionDAO;
 
 public class Funcionario extends Pessoa {
@@ -29,12 +30,12 @@ public class Funcionario extends Pessoa {
 		this.cargo = cargo;
 	}
 
-	public int getIdFuncionario() {
-        return idFuncionario;
-    }
-
     public void setIdFuncionario(int idFuncionario) {
         this.idFuncionario = idFuncionario;
+    }
+    
+	public int getIdFuncionario() {
+        return idFuncionario;
     }
 
     public String getLogin() {
@@ -71,5 +72,9 @@ public class Funcionario extends Pessoa {
 
     public void deleteFuncionario(int idFuncionario) throws ExceptionDAO {
         new FuncionarioDAO().deleteFuncionario(idFuncionario);
+    }
+    
+    public Funcionario getFuncionarioByCpf(String cpf) throws ExceptionDAO {
+    	return new FuncionarioDAO().getFuncionarioByCpf(cpf);
     }
 }

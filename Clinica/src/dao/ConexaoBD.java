@@ -15,7 +15,7 @@ public class ConexaoBD {
 			e.printStackTrace();
 		}
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teste", "aluno", "aluno");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Teste", "aluno", "aluno");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);

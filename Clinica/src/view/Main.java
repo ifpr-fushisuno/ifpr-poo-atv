@@ -12,13 +12,15 @@ public class Main {
 		PessoaController pessoaController = new PessoaController();
 		PacienteController pacienteController = new PacienteController();
 		FuncionarioController funcionarioController = new FuncionarioController();
+		RecepcionistaController recepcionistaController = new RecepcionistaController();
 
 		while (true) {
 			System.out.println("=== Menu de Opções ===");
 			System.out.println("1. Menu de Pessoas");
 			System.out.println("2. Menu de Pacientes");
 			System.out.println("3. Menu de Funcionários");
-			System.out.println("4. Sair");
+			System.out.println("4. Menu de Recepcionista");
+			System.out.println("5. Sair");
 			System.out.print("Escolha uma opção: ");
 
 			int option = scanner.nextInt();
@@ -73,7 +75,7 @@ public class Main {
 						System.out.println("=== Atualizar Pessoa ===");
 						System.out.print("ID da Pessoa a ser atualizada: ");
 						int idAtualizar = scanner.nextInt();
-						scanner.nextLine(); 
+						scanner.nextLine();
 						System.out.print("Nome: ");
 						nome = scanner.nextLine();
 						System.out.print("Telefone: ");
@@ -399,18 +401,63 @@ public class Main {
 				break;
 
 			case 4:
-				// Sair
-				System.out.println("Saindo...");
-				scanner.close();
-				return;
+				System.out.println("=== Menu de Recepcionista ===");
+				System.out.println("1. Cadastrar Recepcionista");
+				System.out.print("Escolha uma opção: ");
 
-			default:
-				System.out.println("Opção inválida. Tente novamente.");
+				int pessoaOption = scanner.nextInt();
+				scanner.nextLine();
+
+				switch (pessoaOption) {
+				case 1:
+					// Cadastrar Recepcionista
+					System.out.println("=== Cadastrar Pessoa ===");
+					System.out.print("Nome: ");
+					String nome = scanner.nextLine();
+					System.out.print("Telefone: ");
+					String telefone = scanner.nextLine();
+					System.out.print("RG: ");
+					String rg = scanner.nextLine();
+					System.out.print("CPF: ");
+					String cpf = scanner.nextLine();
+					System.out.print("Data de Nascimento (YYYY-MM-DD): ");
+					String dataNascimentoInput = scanner.nextLine();
+					Date dataNascimento = Date.valueOf(dataNascimentoInput);
+					System.out.print("Sexo: ");
+					String sexo = scanner.nextLine();
+					System.out.print("Profissão: ");
+					String profissao = scanner.nextLine();
+					System.out.print("Endereço: ");
+					String endereco = scanner.nextLine();
+					System.out.print("Login: ");
+					String login = scanner.nextLine();
+					System.out.print("Senha: ");
+					String senha = scanner.nextLine();
+					System.out.print("Cargo: ");
+					String cargo = scanner.nextLine();
+					try {
+						recepcionistaController.createFullRecepcionista(nome, telefone, rg, cpf, dataNascimento, sexo,
+								profissao, endereco, login, senha, cargo);
+					} catch (Exception e) {
+						System.out.println("Erro: " + e.getMessage());
+					}
+					break;
+
+				case 5:
+					// Sair
+					System.out.println("Saindo...");
+					scanner.close();
+					return;
+
+				default:
+					System.out.println("Opção inválida. Tente novamente.");
+				}
+
+				System.out.println();
 			}
-
-			System.out.println();
 		}
+
+		// Uma ideia pra resolver o problema de cadatro dos usuario seria realizar um
+		// metodo que pega uma pessoa e sua respectiva funcao usando JOIN
 	}
-	
-	// Uma ideia pra resolver o problema de cadatro dos usuario seria realizar um metodo que pega uma pessoa e sua respectiva funcao usando JOIN
 }

@@ -7,10 +7,10 @@ import java.sql.Date;
 import dao.ExceptionDAO;
 
 public class Recepcionista extends Funcionario {
-    private int idRecepcionista;
+	private int idRecepcionista;
+	private int idFuncionario;
 
-
-    public Recepcionista() {
+	public Recepcionista() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -26,30 +26,43 @@ public class Recepcionista extends Funcionario {
 		// TODO Auto-generated constructor stub
 	}
 
-
-    public Recepcionista(int idRecepcionista) {
+	public Recepcionista(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+			String profissao, String endereco, String login, String senha, String cargo) {
 		super();
+
+	}
+
+	public Recepcionista(int idFuncionario) {
+		super();
+		this.idFuncionario = idFuncionario;
+	}
+
+	public int getIdRecepcionista() {
+		return idRecepcionista;
+	}
+
+	public void setIdRecepcionista(int idRecepcionista) {
 		this.idRecepcionista = idRecepcionista;
 	}
-	
-	public int getIdRecepcionista() {
-        return idRecepcionista;
-    }
 
-    public void setIdRecepcionista(int idRecepcionista) {
-        this.idRecepcionista = idRecepcionista;
-    }
+	public int getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(int idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
+	public void createRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
+		new RecepcionistaDAO().createRecepcionista(recepcionista);
+	}
 
 
-	public void createRecepcionista(Recepcionista Recepcionista) throws ExceptionDAO {
-        new RecepcionistaDAO().createRecepcionista(Recepcionista);
-    }
+	public void updateRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
+		new RecepcionistaDAO().updateRecepcionista(recepcionista);
+	}
 
-    public void updateRecepcionista(Recepcionista Recepcionista) throws ExceptionDAO {
-        new RecepcionistaDAO().updateRecepcionista(Recepcionista);
-    }
-
-    public void deleteRecepcionista(int idRecepcionista) throws ExceptionDAO {
-        new RecepcionistaDAO().deleteRecepcionista(idRecepcionista);
-    }
+	public void deleteRecepcionista(int idRecepcionista) throws ExceptionDAO {
+		new RecepcionistaDAO().deleteRecepcionista(idRecepcionista);
+	}
 }
