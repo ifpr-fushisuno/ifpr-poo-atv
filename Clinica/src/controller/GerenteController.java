@@ -1,8 +1,14 @@
 package controller;
 
+import java.sql.Date;
+
+import dao.FuncionarioDAO;
 import dao.GerenteDAO;
+import dao.PessoaDAO;
+import model.Funcionario;
 import model.Gerente;
 import model.Pessoa;
+import model.Gerente;
 
 public class GerenteController {
 
@@ -11,6 +17,25 @@ public class GerenteController {
         if (pessoa.getIdPessoa() > 0 && login != null && senha != null && cargo != null) {
             Gerente gerente = new Gerente(login, senha, cargo);
             new GerenteDAO().createGerente(gerente);
+        } else {
+            throw new Exception("Preencha os campos corretamente!");
+        }
+    }
+    
+    public void createFullGerente(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo) throws Exception {
+        if (nome != null) {
+        	Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
+        	pessoa.createPessoa(pessoa);
+        	pessoa = new PessoaDAO().getPessoaByCpf(pessoa.getCpf());
+        	
+        	Funcionario funcionario = new Funcionario(login, senha, cargo);
+        	funcionario.createFuncionario(funcionario, pessoa.getIdPessoa());
+        	funcionario = new FuncionarioDAO().getFuncionarioByCpf(pessoa.getCpf());
+        	
+        	
+        	Gerente Gerente = new Gerente(funcionario.getIdFuncionario());
+            
+            Gerente.createGerente(Gerente);
         } else {
             throw new Exception("Preencha os campos corretamente!");
         }

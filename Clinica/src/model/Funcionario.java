@@ -74,7 +74,4 @@ public class Funcionario extends Pessoa {
         new FuncionarioDAO().deleteFuncionario(idFuncionario);
     }
     
-    public Funcionario getFuncionarioByCpf(String cpf) throws ExceptionDAO {
-    	return new FuncionarioDAO().getFuncionarioByCpf(cpf);
-    }
 }

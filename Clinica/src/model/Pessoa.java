@@ -115,7 +115,4 @@ public class Pessoa {
         new PessoaDAO().deletePessoa(idPessoa);
     }
     
-    public Pessoa getPessoaByCpf(String cpf) throws ExceptionDAO {
-    	return new PessoaDAO().getPessoaByCpf(cpf);
-    }
 }

@@ -6,6 +6,8 @@ import model.Pessoa;
 
 import java.sql.Date;
 
+import dao.FuncionarioDAO;
+import dao.PessoaDAO;
 import dao.RecepcionistaDAO;
 
 public class RecepcionistaController {
@@ -13,7 +15,7 @@ public class RecepcionistaController {
     public void createSimpleRecepcionista(int idFuncionario) throws Exception {
         if (idFuncionario > 0) {
             Recepcionista recepcionista = new Recepcionista(idFuncionario);
-            recepcionista.createSimpleRecepcionista(recepcionista);
+            recepcionista.createRecepcionista(recepcionista);
         } else {
             throw new Exception("Preencha os campos corretamente!");
         }
@@ -23,11 +25,11 @@ public class RecepcionistaController {
         if (nome != null) {
         	Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
         	pessoa.createPessoa(pessoa);
-        	pessoa = pessoa.getPessoaByCpf(pessoa.getCpf());
+        	pessoa = new PessoaDAO().getPessoaByCpf(pessoa.getCpf());
         	
         	Funcionario funcionario = new Funcionario(login, senha, cargo);
         	funcionario.createFuncionario(funcionario, pessoa.getIdPessoa());
-        	funcionario = funcionario.getFuncionarioByCpf(pessoa.getCpf());
+        	funcionario = new FuncionarioDAO().getFuncionarioByCpf(pessoa.getCpf());
         	
         	
         	Recepcionista recepcionista = new Recepcionista(funcionario.getIdFuncionario());
@@ -60,11 +62,12 @@ public class RecepcionistaController {
         }
     }
 
-    public Recepcionista getRecepcionistaById(int idRecepcionista) throws Exception {
-        if (idRecepcionista > 0) {
-            return new RecepcionistaDAO().getRecepcionistaById(idRecepcionista);
+    public Recepcionista getRecepcionistaByCpf(String cpf) throws Exception {
+        if (cpf != null && !cpf.isEmpty()) {
+        	Recepcionista recepcionista = new RecepcionistaDAO().getRecepcionistaByCpf(cpf);
+            return recepcionista;
         } else {
-            throw new Exception("ID do Recepcionista é inválido!");
+            throw new Exception("CPF é inválido!");
         }
     }
 

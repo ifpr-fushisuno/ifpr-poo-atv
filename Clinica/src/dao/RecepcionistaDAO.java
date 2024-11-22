@@ -1,5 +1,6 @@
 package dao;
 
+import model.Funcionario;
 import model.Recepcionista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,28 +50,30 @@ public class RecepcionistaDAO {
         }
     }
 
-    public Recepcionista getRecepcionistaById(int idRecepcionista) throws ExceptionDAO {
-        String sql = "SELECT * FROM Recepcionista WHERE idRecepcionista = ?;";
+    public Recepcionista getRecepcionistaByCpf(String cpf) throws ExceptionDAO {
+        String sql = "SELECT * FROM Pessoa p \r\n"
+        		+ "JOIN Funcionario f ON p.idPessoa = f.idPessoa\r\n"
+        		+ "JOIN Recepcionista r on f.idFuncionario = r.idFuncionario WHERE p.cpf = ?";
         try (Connection conn = new ConexaoBD().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idRecepcionista);
+            stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
+            
             if (rs.next()) {
                 Recepcionista recepcionista = new Recepcionista();
                 recepcionista.setIdRecepcionista(rs.getInt("idRecepcionista"));
-                recepcionista.setLogin(rs.getString("login"));
-                recepcionista.setSenha(rs.getString("senha"));
-                recepcionista.setCargo(rs.getString("cargo"));
-                // Assumindo que você tem um método para configurar a pessoa associada
-                // recepcionista.setPessoaId(rs.getInt("idPessoa"));
+                recepcionista.setIdPessoa(rs.getInt("idPessoa"));
+                recepcionista.setNome(rs.getString("nome"));
+                recepcionista.setTelefone(rs.getString("telefone"));
+                recepcionista.setCpf(rs.getString("cpf"));
+				
                 return recepcionista;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ExceptionDAO("Erro ao buscar Recepcionista: " + e.getMessage());
         }
-        return null; // Se não encontrado
+        return null;
     }
-
-    // Implement other methods as needed, such as getRecepcionistaByCpf
+    
 }

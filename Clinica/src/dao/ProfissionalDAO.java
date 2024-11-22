@@ -48,6 +48,7 @@ public class ProfissionalDAO {
         }
     }
 
+    
     public Profissional getProfissionalById(int idProfissional) throws ExceptionDAO {
         String sql = "SELECT * FROM Profissional WHERE idProfissional = ?";
         try (Connection conn = new ConexaoBD().getConnection();

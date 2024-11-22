@@ -7,11 +7,14 @@ import dao.ExceptionDAO;
 
 public class Profissional extends Funcionario {
     private int idProfissional;
+    private int idFuncionario;
     private String especialidade;
     private String registroConselho;
     private Date dataInscricao;
     
-    public Profissional() {
+ 
+
+	public Profissional() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -26,12 +29,23 @@ public class Profissional extends Funcionario {
 		super(login, senha, cargo);
 		// TODO Auto-generated constructor stub
 	}
-
-	public Profissional(String especialidade, String registroConselho, Date dataInscricao) {
+	
+	public Profissional(int idFuncionario, String especialidade, String registroConselho,
+			Date dataInscricao) {
 		super();
+		this.idProfissional = idProfissional;
+		this.idFuncionario = idFuncionario;
 		this.especialidade = especialidade;
 		this.registroConselho = registroConselho;
 		this.dataInscricao = dataInscricao;
+	}
+
+	public int getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(int idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 
 	public int getIdProfissional() {

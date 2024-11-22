@@ -7,6 +7,7 @@ import dao.ExceptionDAO;
 
 public class Gerente extends Funcionario {
     private int idGerente;
+    private int idFuncionario;
 
     public Gerente() {
 		super();
@@ -21,12 +22,11 @@ public class Gerente extends Funcionario {
 
 	public Gerente(String login, String senha, String cargo) {
 		super(login, senha, cargo);
-		// TODO Auto-generated constructor stub
 	}
 
-	public Gerente(int idGerente) {
+	public Gerente(int idFuncionario) {
 		super();
-		this.idGerente = idGerente;
+		this.idFuncionario = idFuncionario;
 	}
 
 	public int getIdGerente() {
@@ -37,7 +37,15 @@ public class Gerente extends Funcionario {
         this.idGerente = idGerente;
     }
 
-    public void createGerente(Gerente Gerente) throws ExceptionDAO {
+    public int getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(int idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
+	public void createGerente(Gerente Gerente) throws ExceptionDAO {
         new GerenteDAO().createGerente(Gerente);
     }
 
