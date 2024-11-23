@@ -1,0 +1,46 @@
+package controller;
+
+import java.sql.SQLException;
+
+import dao.MedicoDAO;
+import dao.PacienteDAO;
+import dao.GerenteDAO;
+import dao.RecepcionistaDAO;
+import dao.ExceptionDAO;
+
+public class LoginController {
+    
+    private ProfissionalDAO profissionalDAO;
+    private PacienteDAO pacienteDAO;
+    private GerenteDAO gerenteDAO;
+    private RecepcionistaDAO recepcionistaDAO;
+
+    public LoginController() {
+        // Inicializando os DAOs para cada tipo de usuário
+        this.profissionalDAO = new ProfissionalDAO();
+        this.pacienteDAO = new PacienteDAO();
+        this.gerenteDAO = new GerenteDAO();
+        this.recepcionistaDAO = new RecepcionistaDAO();
+    }
+
+    // Método para autenticar o usuário de acordo com o tipo
+    public boolean autenticar(String username, String password, String userType) throws SQLException, ExceptionDAO {
+        try {
+            switch (userType) {
+                case "Profissional":
+                    return profissionalDAO.autenticarUsuario(username, password);
+                case "Paciente":
+                    return pacienteDAO.autenticarUsuario(username, password);
+                case "Gerente":
+                    return gerenteDAO.autenticarUsuario(username, password);
+                case "Recepcionista":
+                    return recepcionistaDAO.autenticarUsuario(username, password);
+                default:
+                    return false; // Tipo de usuário inválido
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao autenticar usuário: " + e.getMessage());
+            return false;
+        }
+    }
+}
