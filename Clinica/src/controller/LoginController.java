@@ -2,7 +2,7 @@ package controller;
 
 import java.sql.SQLException;
 
-import dao.MedicoDAO;
+import dao.ProfissionalDAO;
 import dao.PacienteDAO;
 import dao.GerenteDAO;
 import dao.RecepcionistaDAO;
