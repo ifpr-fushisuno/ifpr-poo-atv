@@ -1,14 +1,16 @@
 package controller;
 
-import model.Recepcionista;
-import model.Funcionario;
-import model.Pessoa;
-
 import java.sql.Date;
+import java.sql.SQLException;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.RecepcionistaDAO;
+import dao.ExceptionDAO;
+
+import model.Recepcionista;
+import model.Funcionario;
+import model.Pessoa;
 
 public class RecepcionistaController {
 
@@ -70,6 +72,29 @@ public class RecepcionistaController {
             throw new Exception("CPF é inválido!");
         }
     }
+
+    public boolean autenticarUsuario(String username, String password) throws ExceptionDAO, SQLException {
+	    Connection connection = null;
+	    PreparedStatement pStatement = null;
+	    ResultSet rs = null;
+
+	    try {
+	        connection = new ConexaoBD().getConnection();
+	        String sql = "SELECT * FROM Usuario WHERE username = ? AND password = ?";
+	        pStatement = connection.prepareStatement(sql);
+	        pStatement.setString(1, username);
+	        pStatement.setString(2, password);
+	        rs = pStatement.executeQuery();
+
+	        return rs.next(); // Retorna true se encontrar o usuário
+	    } catch (SQLException e) {
+	        throw new ExceptionDAO("Erro ao autenticar usuário: " + e.getMessage());
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (pStatement != null) pStatement.close();
+	        if (connection != null) connection.close();
+	    }
+	}
 
     // Implement other methods as needed for fetching by CPF, etc.
 }
