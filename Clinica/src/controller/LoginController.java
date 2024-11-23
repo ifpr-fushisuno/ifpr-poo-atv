@@ -3,7 +3,6 @@ package controller;
 import java.sql.SQLException;
 
 import dao.ProfissionalDAO;
-import dao.PacienteDAO;
 import dao.GerenteDAO;
 import dao.RecepcionistaDAO;
 import dao.ExceptionDAO;
@@ -11,14 +10,12 @@ import dao.ExceptionDAO;
 public class LoginController {
     
     private ProfissionalDAO profissionalDAO;
-    private PacienteDAO pacienteDAO;
     private GerenteDAO gerenteDAO;
     private RecepcionistaDAO recepcionistaDAO;
 
     public LoginController() {
         // Inicializando os DAOs para cada tipo de usuário
         this.profissionalDAO = new ProfissionalDAO();
-        this.pacienteDAO = new PacienteDAO();
         this.gerenteDAO = new GerenteDAO();
         this.recepcionistaDAO = new RecepcionistaDAO();
     }
@@ -29,8 +26,6 @@ public class LoginController {
             switch (userType) {
                 case "Profissional":
                     return profissionalDAO.autenticarUsuario(username, password);
-                case "Paciente":
-                    return pacienteDAO.autenticarUsuario(username, password);
                 case "Gerente":
                     return gerenteDAO.autenticarUsuario(username, password);
                 case "Recepcionista":
