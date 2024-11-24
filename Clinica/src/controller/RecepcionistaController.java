@@ -1,16 +1,23 @@
 package controller;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
+import dao.ProfissionalDAO;
 import dao.RecepcionistaDAO;
+import dao.ConexaoBD;
 import dao.ExceptionDAO;
 
 import model.Recepcionista;
 import model.Funcionario;
 import model.Pessoa;
+import model.Profissional;
 
 public class RecepcionistaController {
 
@@ -96,5 +103,11 @@ public class RecepcionistaController {
 	    }
 	}
 
-    // Implement other methods as needed for fetching by CPF, etc.
+    public List<Recepcionista> getAllRecepcionistas() throws ExceptionDAO {
+        try {
+            return new RecepcionistaDAO().getAllRecepcionistas();
+        } catch (ExceptionDAO e) {
+            throw e;
+        }
+    }
 }

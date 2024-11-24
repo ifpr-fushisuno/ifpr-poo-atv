@@ -1,11 +1,16 @@
 package controller;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.FuncionarioDAO;
 import dao.GerenteDAO;
 import dao.PessoaDAO;
+import dao.ConexaoBD;
 import dao.ExceptionDAO;
 
 import model.Funcionario;
@@ -43,6 +48,29 @@ public class GerenteController {
             throw new Exception("Preencha os campos corretamente!");
         }
     }
+
+    // Acho que aqui dá pra criar um funcionário direto e depois usar o ID do funcionário para criar um gerente, ao invés de criar pessoa, criar funcionário e só então criar gerente. Por exemplo:
+
+    // public void createFullGerente(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo) throws Exception {
+    //    if (nome != null) {
+    //      // Cria a pessoa
+    //        Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
+    //         pessoa.createPessoa(pessoa);
+    
+    //      // Cria Funcionario
+    //        Funcionario funcionario = new Funcionario(login, senha, cargo);
+    //        funcionario.createFuncionario(funcionario, pessoa.getIdPessoa());
+    //
+    //        // Cria Gerente
+    //        Gerente gerente = new Gerente(funcionario.getIdFuncionario());
+    //        new GerenteDAO().createGerente(gerente);
+    //    } else {
+    //        throw new Exception("Preencha os campos corretamente!");
+    //    }
+    //}
+
+    // Porque a gente chama pessoa.createPessoa(pessoa) e depois faz a query chamando Pessoa de novo (new PessoaDAO().getPessoaByCpf(pessoa.getCpf()), o que é redundante
+    // E a criação de Funcionario também é desnecessária, porque instancia um novo Funcionario, mas depois faz a query por CPF
 
     // Método para atualizar um gerente existente
     public void updateGerente(int idGerente, String login, String senha, String cargo) throws Exception {
@@ -98,4 +126,12 @@ public class GerenteController {
 	        if (connection != null) connection.close();
 	    }
 	}
+
+    public List<Gerente> getAllGerentes() throws ExceptionDAO {
+        try {
+            return new GerenteDAO().getAllGerentes();
+        } catch (ExceptionDAO e) {
+            throw e;
+        }
+    }
 }

@@ -1,14 +1,18 @@
 package controller;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.ProfissionalDAO;
+import dao.ConexaoBD;
 import dao.ExceptionDAO;
 
-import model.Profissional;
 import model.Profissional;
 import model.Funcionario;
 import model.Pessoa;
@@ -18,7 +22,12 @@ public class ProfissionalController {
     public void createProfissional(Pessoa pessoa, String especialidade, String registroConselho, java.sql.Date dataInscricao) throws Exception {
         if (pessoa.getIdPessoa() > 0 && especialidade != null && registroConselho != null && dataInscricao != null) {
             Profissional profissional = new Profissional();
-            profissional.createProfissional(profissional);
+            profissional.setIdFuncionario(pessoa.getIdPessoa());
+            profissional.setEspecialidade(especialidade);
+            profissional.setRegistroConselho(registroConselho);
+            profissional.setDataInscricao(dataInscricao);
+
+            new ProfissionalDAO().createProfissional(profissional);
         } else {
             throw new Exception("Preencha os campos corretamente!");
         }
@@ -42,7 +51,6 @@ public class ProfissionalController {
             throw new Exception("Preencha os campos corretamente!");
         }
     }
-
 
     public void updateProfissional(int idProfissional, String especialidade, String registroConselho, java.sql.Date dataInscricao) throws Exception {
         if (idProfissional > 0 && especialidade != null && registroConselho != null && dataInscricao != null) {
@@ -103,4 +111,12 @@ public class ProfissionalController {
 	        if (connection != null) connection.close();
 	    }
 	}
+
+    public List<Profissional> getAllProfissionais() throws ExceptionDAO {
+        try {
+            return new ProfissionalDAO().getAllProfissionais();
+        } catch (ExceptionDAO e) {
+            throw e;
+        }
+    }
 }
