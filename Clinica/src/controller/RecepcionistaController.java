@@ -1,23 +1,15 @@
 package controller;
 
-import java.sql.Connection;
+import model.Recepcionista;
+import model.Funcionario;
+import model.Pessoa;
+
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.ProfissionalDAO;
 import dao.RecepcionistaDAO;
-import dao.ConexaoBD;
-import dao.ExceptionDAO;
-
-import model.Recepcionista;
-import model.Funcionario;
-import model.Pessoa;
-import model.Profissional;
 
 public class RecepcionistaController {
 
@@ -49,14 +41,10 @@ public class RecepcionistaController {
         }
     }
 
-    public void updateRecepcionista(int idRecepcionista, String login, String senha, String cargo) throws Exception {
-        if (idRecepcionista > 0 && login != null && senha != null && cargo != null) {
-            Recepcionista recepcionista = new Recepcionista();
-            recepcionista.setIdRecepcionista(idRecepcionista);
-            recepcionista.setLogin(login);
-            recepcionista.setSenha(senha);
-            recepcionista.setCargo(cargo);
-            recepcionista.updateRecepcionista(recepcionista);
+    public void updateRecepcionista(int idFuncionario) throws Exception {
+        if (idFuncionario > 0) {
+        	Recepcionista recepcionista = new Recepcionista(idFuncionario);
+        	recepcionista.updateRecepcionista(recepcionista);
         } else {
             throw new Exception("Preencha os campos corretamente!");
         }
@@ -79,29 +67,6 @@ public class RecepcionistaController {
             throw new Exception("CPF é inválido!");
         }
     }
-
-    public boolean autenticarUsuario(String username, String password) throws ExceptionDAO, SQLException {
-	    Connection connection = null;
-	    PreparedStatement pStatement = null;
-	    ResultSet rs = null;
-
-	    try {
-	        connection = new ConexaoBD().getConnection();
-	        String sql = "SELECT * FROM Usuario WHERE username = ? AND password = ?";
-	        pStatement = connection.prepareStatement(sql);
-	        pStatement.setString(1, username);
-	        pStatement.setString(2, password);
-	        rs = pStatement.executeQuery();
-
-	        return rs.next(); // Retorna true se encontrar o usuário
-	    } catch (SQLException e) {
-	        throw new ExceptionDAO("Erro ao autenticar usuário: " + e.getMessage());
-	    } finally {
-	        if (rs != null) rs.close();
-	        if (pStatement != null) pStatement.close();
-	        if (connection != null) connection.close();
-	    }
-	}
 
     public List<Recepcionista> getAllRecepcionistas() throws ExceptionDAO {
         try {
