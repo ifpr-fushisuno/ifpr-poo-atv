@@ -47,9 +47,29 @@ public class TelaProfissional extends JFrame {
         btnPanel.setBackground(new Color(245, 245, 245));
 
         // Botões
+<<<<<<< HEAD
+        btnTelaConsultas = new JButton("Gerenciar Consultas");
+        btnTelaProntuarios = new JButton("Gerenciar Prontuários");
+
+        btnTelaConsultas.setToolTipText("Clique para gerenciar consultas.");
+        btnTelaProntuarios.setToolTipText("Clique para gerenciar prontuários.");
+
+        btnTelaConsultas.setFont(new Font("Arial", Font.BOLD, 18));
+        btnTelaProntuarios.setFont(new Font("Arial", Font.BOLD, 18));
+
+        btnTelaConsultas.setBackground(new Color(100, 150, 200));
+        btnTelaProntuarios.setBackground(new Color(100, 150, 200));
+
+        btnTelaConsultas.setForeground(Color.WHITE);
+        btnTelaProntuarios.setForeground(Color.WHITE);
+
+        btnTelaConsultas.setFocusPainted(false);
+        btnTelaProntuarios.setFocusPainted(false);
+=======
         btnTelaConsultas = criarBotao("Gerenciar Consultas");
         btnTelaProntuarios = criarBotao("Gerenciar Prontuários");
         btnTelaPacientes = criarBotao("Gerenciar Pacientes");
+>>>>>>> 0ff68ae51e47846b3e0ab9e6a013019c4cf9da11
 
         // Ações dos botões
         btnTelaConsultas.addActionListener(e -> abrirTelaConsultas());
