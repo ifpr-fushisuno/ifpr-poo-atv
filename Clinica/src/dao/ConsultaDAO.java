@@ -8,8 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConsultaDAO {
     private Connection connection;
@@ -77,70 +75,5 @@ public class ConsultaDAO {
             throw new ExceptionDAO("Erro ao buscar consulta: " + e.getMessage());
         }
         return null; // Caso não encontre
-    }
-
-    public Consulta getConsultaPorCpfPaciente(String pacienteCpf) throws ExceptionDAO {
-        String sql = "SELECT c.* FROM Consulta c " +
-                     "JOIN Paciente p ON c.idPaciente = p.idPaciente " +
-                     "WHERE p.cpf = ?";
-        
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, pacienteCpf);
-            ResultSet rs = stmt.executeQuery();
-            
-            if (rs.next()) {
-                Paciente paciente = new Paciente(); 
-                paciente.setIdPaciente(rs.getInt("idPaciente"));
-                Profissional profissional = new Profissional();
-                profissional.setIdProfissional(rs.getInt("idProfissional"));
-    
-                return new Consulta(
-                    rs.getInt("idConsulta"),
-                    paciente,
-                    profissional,
-                    rs.getDate("dataConsulta"),
-                    rs.getTime("horaConsulta"),
-                    null,  // If needed, handle dataHoraConsulta calculation
-                    Consulta.StatusConsulta.valueOf(rs.getString("statusConsulta"))
-                );
-            }
-        } catch (SQLException e) {
-            throw new ExceptionDAO("Erro ao buscar consulta pelo CPF do paciente: " + e.getMessage());
-        }
-        return null;
-    }
-
-    public List<Consulta> getConsultasPorCpfPaciente(String pacienteCpf) throws ExceptionDAO {
-        List<Consulta> consultas = new ArrayList<>();
-        String sql = "SELECT c.* FROM Consulta c " +
-                     "JOIN Paciente p ON c.idPaciente = p.idPaciente " +
-                     "WHERE p.cpf = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, pacienteCpf);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                Paciente paciente = new Paciente(); 
-                paciente.setIdPaciente(rs.getInt("idPaciente"));
-                Profissional profissional = new Profissional();
-                profissional.setIdProfissional(rs.getInt("idProfissional"));
-                
-                Consulta consulta = new Consulta(
-                    rs.getInt("idConsulta"),
-                    paciente,
-                    profissional,
-                    rs.getDate("dataConsulta"),
-                    rs.getTime("horaConsulta"),
-                    null,
-                    Consulta.StatusConsulta.valueOf(rs.getString("statusConsulta"))
-                );
-                consultas.add(consulta);
-            }
-        } catch (SQLException e) {
-            throw new ExceptionDAO("Erro ao buscar consultas por CPF: " + e.getMessage());
-        }
-        
-        return consultas;
     }
 }
