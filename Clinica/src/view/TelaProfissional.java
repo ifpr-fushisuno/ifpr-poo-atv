@@ -50,6 +50,9 @@ public class TelaProfissional extends JFrame {
         btnTelaConsultas = new JButton("Gerenciar Consultas");
         btnTelaProntuarios = new JButton("Gerenciar Prontuários");
 
+        btnTelaConsultas.setToolTipText("Clique para gerenciar consultas.");
+        btnTelaProntuarios.setToolTipText("Clique para gerenciar prontuários.");
+
         btnTelaConsultas.setFont(new Font("Arial", Font.BOLD, 18));
         btnTelaProntuarios.setFont(new Font("Arial", Font.BOLD, 18));
 
