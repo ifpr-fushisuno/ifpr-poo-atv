@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
+import dao.ProfissionalDAO;
 import dao.RecepcionistaDAO;
 
 public class RecepcionistaController {
@@ -67,5 +68,11 @@ public class RecepcionistaController {
         }
     }
 
-    // Implement other methods as needed for fetching by CPF, etc.
+    public List<Recepcionista> getAllRecepcionistas() throws ExceptionDAO {
+        try {
+            return new RecepcionistaDAO().getAllRecepcionistas();
+        } catch (ExceptionDAO e) {
+            throw e;
+        }
+    }
 }

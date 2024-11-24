@@ -1,7 +1,6 @@
 package controller;
 
 import java.sql.Date;
-
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.ProfissionalDAO;
@@ -14,7 +13,12 @@ public class ProfissionalController {
     public void createProfissional(Pessoa pessoa, String especialidade, String registroConselho, java.sql.Date dataInscricao) throws Exception {
         if (pessoa.getIdPessoa() > 0 && especialidade != null && registroConselho != null && dataInscricao != null) {
             Profissional profissional = new Profissional();
-            profissional.createProfissional(profissional);
+            profissional.setIdFuncionario(pessoa.getIdPessoa());
+            profissional.setEspecialidade(especialidade);
+            profissional.setRegistroConselho(registroConselho);
+            profissional.setDataInscricao(dataInscricao);
+
+            new ProfissionalDAO().createProfissional(profissional);
         } else {
             throw new Exception("Preencha os campos corretamente!");
         }
@@ -38,7 +42,6 @@ public class ProfissionalController {
             throw new Exception("Preencha os campos corretamente!");
         }
     }
-
 
     public void updateProfissional(int idProfissional, String especialidade, String registroConselho, java.sql.Date dataInscricao) throws Exception {
         if (idProfissional > 0 && especialidade != null && registroConselho != null && dataInscricao != null) {
@@ -69,12 +72,12 @@ public class ProfissionalController {
             throw new Exception("Registro de conselho é inválido!");
         }
     }
+    public List<Profissional> getAllProfissionais() throws ExceptionDAO {
+        try {
+            return new ProfissionalDAO().getAllProfissionais();
+        } catch (ExceptionDAO e) {
+            throw e;
     
-    public Profissional getProfissionalByCpf(String cpf) throws Exception {
-        if (cpf != null && !cpf.isEmpty()) {
-            return new ProfissionalDAO().getProfissionalByCpf(cpf);
-        } else {
-            throw new Exception("CPF é inválido!");
         }
     }
 }

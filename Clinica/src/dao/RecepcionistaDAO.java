@@ -12,6 +12,7 @@ public class RecepcionistaDAO {
 
     public void createRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
         String sql = "INSERT INTO Recepcionista (idFuncionario) VALUES (?);";
+        
         try (Connection conn = new ConexaoBD().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
         	stmt.setInt(1, recepcionista.getIdFuncionario());
@@ -22,9 +23,9 @@ public class RecepcionistaDAO {
         }
     }
 
-
     public void updateRecepcionista(Recepcionista recepcionista) throws ExceptionDAO {
         String sql = "UPDATE Recepcionista SET login = ?, senha = ?, cargo = ? WHERE idRecepcionista = ?;";
+        
         try (Connection conn = new ConexaoBD().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, recepcionista.getLogin());
@@ -41,6 +42,7 @@ public class RecepcionistaDAO {
 
     public void deleteRecepcionista(int idRecepcionista) throws ExceptionDAO {
         String sql = "DELETE FROM Recepcionista WHERE idRecepcionista = ?;";
+        
         try (Connection conn = new ConexaoBD().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idRecepcionista);
