@@ -284,12 +284,10 @@ public class TelaConsulta extends JFrame {
         try {
             String pacienteCpf = txtPacienteCpf.getText();
     
-    
             if (pacienteCpf.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira o CPF do paciente.");
                 return;
             }
-    
             
             Consulta consultaToDelete = new ConsultaDAO().getConsultaPorCpfPaciente(pacienteCpf);
     
