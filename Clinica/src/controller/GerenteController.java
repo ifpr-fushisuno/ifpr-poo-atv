@@ -1,7 +1,7 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.Date;
+
 import dao.FuncionarioDAO;
 import dao.GerenteDAO;
 import dao.PessoaDAO;
@@ -37,7 +37,7 @@ public class GerenteController {
             throw new Exception("Preencha os campos corretamente!");
         }
     }
-  
+
     public void updateGerente(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo) throws Exception {
         if (nome != null) {
         	Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
@@ -72,4 +72,6 @@ public class GerenteController {
             throw new Exception("CPF é inválido!");
         }
     }
+    
+    
 }
