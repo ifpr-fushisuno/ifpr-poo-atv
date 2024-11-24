@@ -72,5 +72,6 @@ public class GerenteController {
             throw new Exception("CPF é inválido!");
         }
     }
-
+    
+    
 }
