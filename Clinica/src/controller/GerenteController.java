@@ -69,9 +69,6 @@ public class GerenteController {
     //    }
     //}
 
-    // Porque a gente chama pessoa.createPessoa(pessoa) e depois faz a query chamando Pessoa de novo (new PessoaDAO().getPessoaByCpf(pessoa.getCpf()), o que é redundante
-    // E a criação de Funcionario também é desnecessária, porque instancia um novo Funcionario, mas depois faz a query por CPF
-
     // Método para atualizar um gerente existente
     public void updateGerente(int idGerente, String login, String senha, String cargo) throws Exception {
         if (idGerente > 0 && login != null && senha != null && cargo != null) {
