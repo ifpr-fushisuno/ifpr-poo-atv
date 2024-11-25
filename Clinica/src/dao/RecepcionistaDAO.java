@@ -1,10 +1,12 @@
 package dao;
 
+import model.Profissional;
 import model.Recepcionista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +67,33 @@ public class RecepcionistaDAO {
 			throw new ExceptionDAO("Erro ao buscar Recepcionista: " + e.getMessage());
 		}
 		return null;
+	}
+	
+	public Recepcionista getRecepcionistaByLogin(String username) throws ExceptionDAO, SQLException {
+		String sql = "SELECT * FROM Pessoa p " + "JOIN Funcionario f ON p.idPessoa = f.idPessoa "
+				+ "JOIN Recepcionista pp ON f.idFuncionario = pp.idFuncionario " + "WHERE f.login = ?";
+
+		try (Connection conn = new ConexaoBD().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, username);
+
+			// Executa a consulta
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					Recepcionista recepcionista = new Recepcionista();
+					recepcionista.setIdPessoa(rs.getInt("idPessoa"));
+					recepcionista.setNome(rs.getString("nome"));
+					recepcionista.setTelefone(rs.getString("telefone"));
+					recepcionista.setCpf(rs.getString("cpf"));
+					recepcionista.setIdRecepcionista(rs.getInt("idRecepcionista"));
+
+					return recepcionista;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new ExceptionDAO("Erro ao buscar Recepcionista: " + e.getMessage());
+			}
+			return null;
+		}
 	}
 
 	public List<Recepcionista> getAllRecepcionistas() throws ExceptionDAO{

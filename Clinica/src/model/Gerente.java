@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.GerenteDAO;
 import dao.ExceptionDAO;
@@ -14,7 +15,7 @@ public class Gerente extends Funcionario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Gerente(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+	public Gerente(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
 			String profissao, String endereco) {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 		// TODO Auto-generated constructor stub

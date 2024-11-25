@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Gerente;
+import model.Profissional;
 
 public class GerenteDAO {
 
@@ -97,5 +98,32 @@ public class GerenteDAO {
   
         return gerentes;
     }
+
+	public Gerente getGerenteByLogin(String username) throws ExceptionDAO, SQLException {
+			String sql = "SELECT * FROM Pessoa p " + "JOIN Funcionario f ON p.idPessoa = f.idPessoa "
+					+ "JOIN Gerente pp ON f.idFuncionario = pp.idFuncionario " + "WHERE f.login = ?";
+
+			try (Connection conn = new ConexaoBD().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setString(1, username);
+
+				// Executa a consulta
+				try (ResultSet rs = stmt.executeQuery()) {
+					while (rs.next()) {
+						Gerente gerente = new Gerente();
+						gerente.setIdPessoa(rs.getInt("idPessoa"));
+						gerente.setNome(rs.getString("nome"));
+						gerente.setTelefone(rs.getString("telefone"));
+						gerente.setCpf(rs.getString("cpf"));
+						gerente.setIdGerente(rs.getInt("idProfissional"));
+
+						return gerente;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ExceptionDAO("Erro ao buscar Recepcionista: " + e.getMessage());
+				}
+				return null;
+			}
+		}
 
 }

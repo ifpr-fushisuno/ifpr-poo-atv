@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
@@ -18,7 +19,7 @@ public class Funcionario extends Pessoa {
 		super();
 	}
 
-	public Funcionario(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+	public Funcionario(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
 			String profissao, String endereco) {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 	}

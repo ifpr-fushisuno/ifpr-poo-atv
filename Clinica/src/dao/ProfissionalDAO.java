@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,11 @@ public class ProfissionalDAO {
 	public void createProfissional(Profissional profissional) throws ExceptionDAO {
 		String sql = "INSERT INTO Profissional (especialidade, registroConselho, dataInscricao, idFuncionario) VALUES (?, ?, ?, ?)";
 		try (Connection conn = new ConexaoBD().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			java.sql.Date sqlDate = java.sql.Date.valueOf(profissional.getDataNascimento());
+			
 			stmt.setString(1, profissional.getEspecialidade());
 			stmt.setString(2, profissional.getRegistroConselho());
-			stmt.setDate(3, profissional.getDataInscricao());
+			stmt.setDate(3, sqlDate);
 			stmt.setInt(4, profissional.getIdFuncionario()); // ID do funcionario associado
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -27,9 +31,11 @@ public class ProfissionalDAO {
 	public void updateProfisssional(Profissional profissional) throws ExceptionDAO {
 		String sql = "UPDATE Profissional SET especialidade = ?, registroConselho = ?, dataInscricao = ? WHERE idProfissional = ?";
 		try (Connection conn = new ConexaoBD().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			java.sql.Date sqlDate = java.sql.Date.valueOf(profissional.getDataNascimento());
+			
 			stmt.setString(1, profissional.getEspecialidade());
 			stmt.setString(2, profissional.getRegistroConselho());
-			stmt.setDate(3, profissional.getDataInscricao());
+			stmt.setDate(3, sqlDate);
 			stmt.setInt(4, profissional.getIdProfissional());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -54,10 +60,20 @@ public class ProfissionalDAO {
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				Profissional profissional = new Profissional();
+				
+				java.sql.Date sqlDate = rs.getDate("dataIncricao");
+
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				profissional.setIdProfissional(rs.getInt("idProfissional"));
 				profissional.setEspecialidade(rs.getString("especialidade"));
 				profissional.setRegistroConselho(rs.getString("registroConselho"));
-				profissional.setDataInscricao(rs.getDate("dataInscricao"));
+				profissional.setDataInscricao(dataLocalDate);
 				return profissional;
 			}
 		} catch (SQLException e) {
@@ -74,10 +90,20 @@ public class ProfissionalDAO {
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				Profissional profissional = new Profissional();
+				
+				java.sql.Date sqlDate = rs.getDate("dataIncricao");
+
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				profissional.setIdProfissional(rs.getInt("idProfissional"));
 				profissional.setEspecialidade(rs.getString("especialidade"));
 				profissional.setRegistroConselho(rs.getString("registroConselho"));
-				profissional.setDataInscricao(rs.getDate("dataInscricao"));
+				profissional.setDataInscricao(dataLocalDate);
 				return profissional;
 			}
 		} catch (SQLException e) {
@@ -96,6 +122,16 @@ public class ProfissionalDAO {
 			if (rs.next()) {
 
 				Profissional profissional = new Profissional();
+				
+				java.sql.Date sqlDate = rs.getDate("dataIncricao");
+
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				profissional.setIdPessoa(rs.getInt("idPessoa"));
 				profissional.setNome(rs.getString("nome"));
 				profissional.setTelefone(rs.getString("telefone"));
@@ -103,7 +139,7 @@ public class ProfissionalDAO {
 				profissional.setIdProfissional(rs.getInt("idProfissional"));
 				profissional.setEspecialidade(rs.getString("especialidade"));
 				profissional.setRegistroConselho(rs.getString("registroConselho"));
-				profissional.setDataInscricao(rs.getDate("dataInscricao"));
+				profissional.setDataInscricao(dataLocalDate);
 
 				return profissional;
 			}
@@ -125,6 +161,16 @@ public class ProfissionalDAO {
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					Profissional profissional = new Profissional();
+					
+					java.sql.Date sqlDate = rs.getDate("dataIncricao");
+
+					LocalDate dataLocalDate = null;
+					if (sqlDate != null) {
+					    dataLocalDate = sqlDate.toLocalDate();
+					} else {
+					    System.out.println("dataIncricao está nulo.");
+					}
+					
 					profissional.setIdPessoa(rs.getInt("idPessoa"));
 					profissional.setNome(rs.getString("nome"));
 					profissional.setTelefone(rs.getString("telefone"));
@@ -132,7 +178,7 @@ public class ProfissionalDAO {
 					profissional.setIdProfissional(rs.getInt("idProfissional"));
 					profissional.setEspecialidade(rs.getString("especialidade"));
 					profissional.setRegistroConselho(rs.getString("registroConselho"));
-					profissional.setDataInscricao(rs.getDate("dataInscricao"));
+					profissional.setDataInscricao(dataLocalDate);
 
 					return profissional;
 				}
@@ -155,10 +201,20 @@ public class ProfissionalDAO {
 
 			while (rs.next()) {
 				Profissional profissional = new Profissional();
+				
+				java.sql.Date sqlDate = rs.getDate("dataIncricao");
+
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				profissional.setIdProfissional(rs.getInt("idProfissional"));
 				profissional.setEspecialidade(rs.getString("especialidade"));
 				profissional.setRegistroConselho(rs.getString("registroConselho"));
-				profissional.setDataInscricao(rs.getDate("dataInscricao"));
+				profissional.setDataInscricao(dataLocalDate);
 
 				profissionais.add(profissional);
 			}

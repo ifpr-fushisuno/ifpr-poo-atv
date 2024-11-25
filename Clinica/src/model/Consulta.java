@@ -14,7 +14,7 @@ public class Consulta {
 	private Date dataConsulta;
 	private Time horaConsulta;
 	private LocalDateTime dataHoraConsulta;
-	private StatusConsulta statusConsulta;
+	private String statusConsulta;
 
 	public enum StatusConsulta {
 		AGENDADA, CANCELADA, CONCLUIDA;
@@ -24,18 +24,15 @@ public class Consulta {
 		super();
 	}
 
-	public Consulta(int idConsulta, model.Paciente paciente, model.Profissional profissional, Date dataConsulta,
-			Time horaConsulta, LocalDateTime dataHoraConsulta, StatusConsulta statusConsulta) {
+	public Consulta(model.Paciente paciente, model.Profissional profissional, Date dataConsulta, Time horaConsulta,
+			String statusConsulta) {
 		super();
-		this.idConsulta = idConsulta;
 		Paciente = paciente;
 		Profissional = profissional;
 		this.dataConsulta = dataConsulta;
 		this.horaConsulta = horaConsulta;
-		this.dataHoraConsulta = dataHoraConsulta;
 		this.statusConsulta = statusConsulta;
 	}
-	
 
 	public int getIdConsulta() {
 		return idConsulta;
@@ -49,16 +46,16 @@ public class Consulta {
 		return Paciente;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		Paciente = paciente;
+	public void setPaciente(String string) {
+		this.Paciente.setNome(string);
 	}
 
 	public Profissional getProfissional() {
 		return Profissional;
 	}
 
-	public void setProfissional(Profissional profissional) {
-		Profissional = profissional;
+	public void setProfissional(String string) {
+		this.Profissional.setNome(string);
 	}
 
 	public Date getDataConsulta() {
@@ -89,16 +86,16 @@ public class Consulta {
 		return "" + statusConsulta;
 	}
 
-	public void setStatusConsulta(StatusConsulta statusConsulta) {
-		this.statusConsulta = statusConsulta;
+	public void setStatusConsulta(String string) {
+		this.statusConsulta = string;
 	}
 
-	public void createConsulta(Consulta consulta, int idPaciente, int idProfissional) throws ExceptionDAO {
-		new ConsultaDAO().createConsulta(consulta, idPaciente, idProfissional);
+	public void createConsulta(Consulta consulta) throws ExceptionDAO {
+		new ConsultaDAO().createConsulta(consulta);
 	}
 
-	public void updateConsulta(Consulta consulta, int idProfissional) throws ExceptionDAO {
-		new ConsultaDAO().updateConsulta(consulta, idProfissional);
+	public void updateConsulta(Consulta consulta) throws ExceptionDAO {
+		new ConsultaDAO().updateConsulta(consulta);
 	}
 
 	public void deleteConsulta(int idConsulta) throws ExceptionDAO {

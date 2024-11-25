@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.ProfissionalDAO;
 import dao.ExceptionDAO;
@@ -10,7 +11,7 @@ public class Profissional extends Funcionario {
     private int idFuncionario;
     private String especialidade;
     private String registroConselho;
-    private Date dataInscricao;
+    private LocalDate dataInscricao;
     
  
 
@@ -19,7 +20,7 @@ public class Profissional extends Funcionario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Profissional(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+	public Profissional(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
 			String profissao, String endereco) {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 		// TODO Auto-generated constructor stub
@@ -31,9 +32,8 @@ public class Profissional extends Funcionario {
 	}
 	
 	public Profissional(int idFuncionario, String especialidade, String registroConselho,
-			Date dataInscricao) {
+			LocalDate dataInscricao) {
 		super();
-		this.idProfissional = idProfissional;
 		this.idFuncionario = idFuncionario;
 		this.especialidade = especialidade;
 		this.registroConselho = registroConselho;
@@ -72,11 +72,11 @@ public class Profissional extends Funcionario {
         this.registroConselho = registroConselho;
     }
 
-    public Date getDataInscricao() {
+    public LocalDate getDataInscricao() {
         return dataInscricao;
     }
 
-    public void setDataInscricao(Date dataInscricao) {
+    public void setDataInscricao(LocalDate dataInscricao) {
         this.dataInscricao = dataInscricao;
     }
 

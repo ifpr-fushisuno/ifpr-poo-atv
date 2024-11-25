@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import model.Pessoa;
 
@@ -16,12 +18,13 @@ public class PessoaDAO {
 		try {
 			conn = new ConexaoBD().getConnection();
 			stmt = conn.prepareStatement(sql);
+			java.sql.Date sqlDate = java.sql.Date.valueOf(pessoa.getDataNascimento());
 			
 			stmt.setString(1, pessoa.getNome());
 			stmt.setString(2, pessoa.getTelefone());
 			stmt.setString(3, pessoa.getRg());
 			stmt.setString(4, pessoa.getCpf());
-			stmt.setDate(5, pessoa.getDataNascimento());
+			stmt.setDate(5, sqlDate);
 			stmt.setString(6, pessoa.getSexo());
 			stmt.setString(7, pessoa.getProfissao());
 			stmt.setString(8, pessoa.getEndereco());
@@ -53,11 +56,14 @@ public class PessoaDAO {
 		String sql = "UPDATE Pessoa SET nome = ?, telefone = ?, rg = ?, cpf = ?, dataNascimento = ?, sexo = ?, profissao = ?, endereco = ? WHERE idPessoa = ?";
 		try (Connection conn = new ConexaoBD().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			
+			java.sql.Date sqlDate = java.sql.Date.valueOf(Pessoa.getDataNascimento());
+			
 			stmt.setString(1, Pessoa.getNome());
 			stmt.setString(2, Pessoa.getTelefone());
 			stmt.setString(3, Pessoa.getRg());
 			stmt.setString(4, Pessoa.getCpf());
-			stmt.setDate(5, Pessoa.getDataNascimento());
+			stmt.setDate(5, sqlDate);
 			stmt.setString(6, Pessoa.getSexo());
 			stmt.setString(7, Pessoa.getProfissao());
 			stmt.setString(8, Pessoa.getEndereco());
@@ -92,13 +98,22 @@ public class PessoaDAO {
 
 			if (rs.next()) {
 				Pessoa Pessoa = new Pessoa();
+				
+				java.sql.Date sqlDate = rs.getDate("dataIncricao");
 
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				Pessoa.setIdPessoa(rs.getInt("idPessoa"));
 				Pessoa.setNome(rs.getString("nome"));
 				Pessoa.setTelefone(rs.getString("telefone"));
 				Pessoa.setRg(rs.getString("rg"));
 				Pessoa.setCpf(rs.getString("cpf"));
-				Pessoa.setDataNascimento(rs.getDate("dataNascimento"));
+				Pessoa.setDataNascimento(dataLocalDate);
 				Pessoa.setSexo(rs.getString("sexo"));
 				Pessoa.setProfissao(rs.getString("profissao"));
 				Pessoa.setEndereco(rs.getString("endereco"));
@@ -123,12 +138,21 @@ public class PessoaDAO {
 			if (rs.next()) {
 				Pessoa Pessoa = new Pessoa();
 
+				java.sql.Date sqlDate = rs.getDate("dataNascimento");
+
+				LocalDate dataLocalDate = null;
+				if (sqlDate != null) {
+				    dataLocalDate = sqlDate.toLocalDate();
+				} else {
+				    System.out.println("dataIncricao está nulo.");
+				}
+				
 				Pessoa.setIdPessoa(rs.getInt("idPessoa"));
 				Pessoa.setNome(rs.getString("nome"));
 				Pessoa.setTelefone(rs.getString("telefone"));
 				Pessoa.setRg(rs.getString("rg"));
 				Pessoa.setCpf(rs.getString("cpf"));
-				Pessoa.setDataNascimento(rs.getDate("dataNascimento"));
+				Pessoa.setDataNascimento(dataLocalDate);
 				Pessoa.setSexo(rs.getString("sexo"));
 				Pessoa.setProfissao(rs.getString("profissao"));
 				Pessoa.setEndereco(rs.getString("endereco"));

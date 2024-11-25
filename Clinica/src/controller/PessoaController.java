@@ -1,13 +1,14 @@
 package controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.PessoaDAO;
 import model.Pessoa;
 
 public class PessoaController {
     	
-	public void createPessoa(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao) throws Exception{
+	public void createPessoa(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo, String profissao) throws Exception{
 		if (nome != null && nome.length() > 0 && telefone != null && telefone.length() > 0) {
 			Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, profissao);
 			pessoa.createPessoa(pessoa);
@@ -16,7 +17,7 @@ public class PessoaController {
 		}
 	}
 
-	public void updatePessoa(int idPessoa, String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao) throws Exception{
+	public void updatePessoa(int idPessoa, String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo, String profissao) throws Exception{
 		if (nome != null && nome.length() > 0 && telefone != null && telefone.length() > 0) { 
 			Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, profissao);
 			pessoa.setIdPessoa(idPessoa);

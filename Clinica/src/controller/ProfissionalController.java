@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
@@ -20,7 +21,7 @@ public class ProfissionalController {
         }
     }
     
-    public void createFullProfissional(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo, String especialidade, String registroConselho, Date dataInscricao) throws Exception {
+    public void createFullProfissional(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo, String especialidade, String registroConselho, LocalDate dataInscricao) throws Exception {
         if (nome != null) {
         	Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
         	pessoa.createPessoa(pessoa);
@@ -38,7 +39,7 @@ public class ProfissionalController {
         }
     }
 
-    public void updateProfissional(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo, String especialidade, String registroConselho, Date dataInscricao) throws Exception {
+    public void updateProfissional(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo, String profissao, String endereco, String login, String senha, String cargo, String especialidade, String registroConselho, LocalDate dataInscricao) throws Exception {
         if (nome != null) {
         	Pessoa pessoa = new Pessoa(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
         	pessoa.setIdPessoa(new PessoaDAO().getPessoaByCpf(pessoa.getCpf()).getIdPessoa());

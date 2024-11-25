@@ -1,10 +1,14 @@
 package dao;
 
 import model.Funcionario;
+import model.Recepcionista;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FuncionarioDAO {
 
@@ -119,25 +123,66 @@ public class FuncionarioDAO {
 	}
 
 	public boolean autenticarFuncionario(String username, String password) throws ExceptionDAO, SQLException {
-	    Connection connection = null;
-	    PreparedStatement pStatement = null;
-	    ResultSet rs = null;
+		Connection connection = null;
+		PreparedStatement pStatement = null;
+		ResultSet rs = null;
 
-	    try {
-	        connection = new ConexaoBD().getConnection();
-	        String sql = "SELECT * FROM Funcionario WHERE login = ? AND senha = ?";
-	        pStatement = connection.prepareStatement(sql);
-	        pStatement.setString(1, username);
-	        pStatement.setString(2, password);
-	        rs = pStatement.executeQuery();
+		try {
+			connection = new ConexaoBD().getConnection();
+			String sql = "SELECT * FROM Funcionario WHERE login = ? AND senha = ?";
+			pStatement = connection.prepareStatement(sql);
+			pStatement.setString(1, username);
+			pStatement.setString(2, password);
+			rs = pStatement.executeQuery();
 
-	        return rs.next();
-	    } catch (SQLException e) {
-	        throw new ExceptionDAO("Erro ao autenticar usuário: " + e.getMessage());
-	    } finally {
-	        if (rs != null) rs.close();
-	        if (pStatement != null) pStatement.close();
-	        if (connection != null) connection.close();
-	    }
+			return rs.next();
+		} catch (SQLException e) {
+			throw new ExceptionDAO("Erro ao autenticar usuário: " + e.getMessage());
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pStatement != null)
+				pStatement.close();
+			if (connection != null)
+				connection.close();
+		}
+	}
+
+	public List<Funcionario> getAllFuncionarios() throws ExceptionDAO {
+		String sql = "SELECT p.nome, p.cpf, g.idGerente, r.idRecepcionista, pp.idProfissional FROM Pessoa p \r\n"
+				+ "JOIN Funcionario f ON p.idPessoa = f.idPessoa\r\n"
+				+ "LEFT JOIN Gerente g ON f.idFuncionario = g.idFuncionario\r\n"
+				+ "LEFT JOIN Recepcionista r ON f.idFuncionario = r.idFuncionario\r\n"
+				+ "LEFT JOIN Profissional pp ON f.idFuncionario = pp.idFuncionario;";
+
+		List<Funcionario> funcionarios = new ArrayList<>();
+
+		try (Connection conn = new ConexaoBD().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Funcionario funcionario = new Recepcionista();
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setCpf(rs.getString("cpf"));
+				if (rs.getInt("idGerente") > 1) {
+					funcionario.setCargo("Gerente");
+				}
+				else if (rs.getInt("idRecepcionista") > 0) {
+					funcionario.setCargo("Recepcionista");
+				}
+				else if(rs.getInt("idProfissional") > 0) {
+					funcionario.setCargo("Profissional");
+	        	}else {
+	        		funcionario.setCargo("Nenhum");
+	        	}
+
+				funcionarios.add(funcionario);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ExceptionDAO("Erro ao buscar todos os recepcionistas cadastrados: " + e.getMessage());
+		}
+
+		return funcionarios;
 	}
 }

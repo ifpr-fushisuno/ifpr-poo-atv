@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.PessoaDAO;
 import dao.ExceptionDAO;
@@ -11,7 +11,7 @@ public class Pessoa {
     private String telefone;
     private String rg;
     private String cpf;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String sexo;
     private String profissao;
     private String endereco;
@@ -19,7 +19,7 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+    public Pessoa(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
             String profissao, String endereco) {
         this.nome = nome;
         this.telefone = telefone;
@@ -71,11 +71,11 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

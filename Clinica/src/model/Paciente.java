@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.PacienteDAO;
 import dao.ExceptionDAO;
@@ -21,7 +22,7 @@ public class Paciente extends Pessoa {
 		super();
 	}
 
-	public Paciente(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+	public Paciente(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
 			String profissao, String endereco) {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 	}

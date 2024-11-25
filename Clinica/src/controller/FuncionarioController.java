@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.List;
+
+import dao.ExceptionDAO;
 import dao.FuncionarioDAO;
 import model.Funcionario;
 import model.Pessoa;
@@ -17,7 +20,8 @@ public class FuncionarioController {
 
     public void updateFuncionario(int idFuncionario, String login, String senha, String cargo) throws Exception {
         if (idFuncionario > 0 && login != null && senha != null && cargo != null) {
-            Funcionario funcionario = new Funcionario();
+            Funcionario funcionario = new Funcionario(login, senha, cargo);
+            funcionario.setIdFuncionario(idFuncionario);
             funcionario.updateFuncionario(funcionario);
         } else {
             throw new Exception("Preencha os campos corretamente!");
@@ -39,6 +43,15 @@ public class FuncionarioController {
             return funcionario;
         } else {
             throw new Exception("CPF é inválido!");
+        }
+    }
+    
+    public List<Funcionario> getAllFuncionario() throws ExceptionDAO {
+        try {
+        	return new FuncionarioDAO().getAllFuncionarios();
+        } catch (ExceptionDAO e) {
+            throw new ExceptionDAO("Erro ao buscar recepcionistas: " + e.getMessage());
+
         }
     }
 }

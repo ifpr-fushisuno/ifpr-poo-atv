@@ -20,8 +20,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import controller.GerenteController;
 import controller.LoginController;
+import controller.ProfissionalController;
+import controller.RecepcionistaController;
 import dao.ExceptionDAO;
+import model.Gerente;
+import model.Profissional;
+import model.Recepcionista;
 
 public class TelaLogin extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -87,6 +93,7 @@ public class TelaLogin extends JFrame {
          * A classe GridBagConstraints permite adicionar as coordenadas da grid que você prefere que seu
          * elemento do JFrame fique localizado
          */
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
         formPanel.add(lblUsername, gbc);
@@ -127,13 +134,19 @@ public class TelaLogin extends JFrame {
                         // Redirecionando para a tela de acordo com o tipo de usuário
                         switch (userType) {
                             case "Profissional":
-                                new TelaProfissional().setVisible(true);
+                            	ProfissionalController profissionalController = new ProfissionalController();
+                            	Profissional profissional = profissionalController.getProfissionalByLogin(username);
+                                new TelaProfissional(profissional).setVisible(true);
                                 break;
                             case "Gerente":
+                            	GerenteController gerenteController = new GerenteController();
+                            	Gerente gerente = gerenteController.getGerenteByLogin(username);
                                 new TelaGerente().setVisible(true);
                                 break;
                             case "Recepcionista":
-                                new TelaRecepcionista().setVisible(true);
+                            	RecepcionistaController recepcionistaController = new RecepcionistaController();
+                            	Recepcionista recepcionista = recepcionistaController.getRecepcionistaByLogin(username);
+                            	new TelaRecepcionista(recepcionista).setVisible(true);
                                 break;
                         }
                         dispose(); 
@@ -142,7 +155,10 @@ public class TelaLogin extends JFrame {
                     }
                 } catch (SQLException | ExceptionDAO ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao autenticar: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+                } catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 

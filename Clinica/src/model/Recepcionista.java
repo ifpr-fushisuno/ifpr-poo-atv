@@ -3,6 +3,7 @@ package model;
 import dao.RecepcionistaDAO;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import dao.ExceptionDAO;
 
@@ -15,7 +16,7 @@ public class Recepcionista extends Funcionario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recepcionista(String nome, String telefone, String rg, String cpf, Date dataNascimento, String sexo,
+	public Recepcionista(String nome, String telefone, String rg, String cpf, LocalDate dataNascimento, String sexo,
 			String profissao, String endereco) {
 		super(nome, telefone, rg, cpf, dataNascimento, sexo, profissao, endereco);
 		// TODO Auto-generated constructor stub
