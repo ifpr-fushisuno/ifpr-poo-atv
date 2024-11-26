@@ -1,7 +1,10 @@
 package dao;
 
+import model.Gerente;
 import model.Paciente;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PacienteDAO {
 
@@ -126,4 +129,47 @@ public class PacienteDAO {
         return null;  
     }
 
+    public List<Paciente> getAllPacientes() throws ExceptionDAO {
+        String sql = "SELECT * FROM Paciente p JOIN Pessoa pe ON p.idPessoa = pe.idPessoa";
+
+        List<Paciente> pacientes = new ArrayList<>();
+
+        try (Connection conn = new ConexaoBD().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Paciente paciente = new Paciente();
+                
+                paciente.setIdPaciente(rs.getInt("idPaciente"));
+                paciente.setEtnia(rs.getString("etnia"));
+                paciente.setTipoSanguineo(rs.getString("tipoSanguineo"));
+                paciente.setFatorRh(rs.getBoolean("fatorRh"));
+                paciente.setPeso(rs.getDouble("peso"));
+                paciente.setAltura(rs.getDouble("altura"));
+                paciente.setDoador(rs.getBoolean("doador"));
+                paciente.setFumante(rs.getBoolean("fumante"));
+                paciente.setDoencas(rs.getString("doencas"));
+                paciente.setLimitacoes(rs.getString("limitacoes"));
+
+                // Set values for Pessoa (which is a superclass of Paciente)
+                paciente.setNome(rs.getString("nome"));
+                paciente.setTelefone(rs.getString("telefone"));
+                paciente.setRg(rs.getString("rg"));
+                paciente.setCpf(rs.getString("cpf"));
+                paciente.setDataNascimento(rs.getDate("dataNascimento"));
+                paciente.setSexo(rs.getString("sexo"));
+                paciente.setProfissao(rs.getString("profissao"));
+                paciente.setEndereco(rs.getString("endereco"));
+
+                pacientes.add(paciente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ExceptionDAO("Erro ao buscar todos os pacientes cadastrados: " + e.getMessage());
+        }
+
+        return pacientes;
+    }
 }
