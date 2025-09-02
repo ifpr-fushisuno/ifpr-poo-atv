@@ -58,7 +58,7 @@ O sistema segue o padrão **MVC (Model-View-Controller)** e utiliza **DAO (Data 
 ## 💻 Como Executar
 1. Clone este repositório:  
    ```bash
-   git clone https://github.com/ifpr-brunner/ifpr-poo-clinica-medica.git
+   git clone https://github.com/ifpr-fushisuno/ifpr-poo-atv.git
    ```
 
 2. Importe o projeto em uma IDE Java (Eclipse, IntelliJ ou NetBeans).
